@@ -1,0 +1,63 @@
+###
+POST http://localhost:8080/mens
+Content-Type: application/json
+
+{
+  "name":"민팔",
+  "age": 20,
+  "gender": "Female",
+  "schoolId": 7
+}
+
+###
+GET http://localhost:8080/mens
+Content-Type: application/json
+
+###
+GET http://localhost:8080/mens/7
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/mens/8
+Content-Type: application/json
+
+{
+  "name":"민팔",
+  "gender": "male",
+  "age": 2,
+  "schoolId" : 6
+}
+
+###
+DELETE http://localhost:8080/mens/3
+Content-Type: application/json
+
+###
+POST http://localhost:8080/schools
+Content-Type: application/json
+
+{
+  "major": "수학교육",
+  "grade": 4
+}
+
+###
+GET http://localhost:8080/schools
+Content-Type: application/json
+
+###
+GET http://localhost:8080/schools/5
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/schools/4
+Content-Type: application/json
+
+{
+  "major": "만화애니",
+  "grade": 1
+}
+
+###
+DELETE http://localhost:8080/schools/4
+Content-Type: application/json
