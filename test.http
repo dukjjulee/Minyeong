@@ -3,10 +3,10 @@ POST http://localhost:8080/mens
 Content-Type: application/json
 
 {
-  "name":"민팔",
+  "name":"민사",
   "age": 20,
-  "gender": "Female",
-  "schoolId": 7
+  "gender": "male",
+  "schoolId": 3
 }
 
 ###
@@ -18,18 +18,18 @@ GET http://localhost:8080/mens/7
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/mens/8
+PUT http://localhost:8080/mens/3
 Content-Type: application/json
 
 {
-  "name":"민팔",
+  "name":"민삼",
   "gender": "male",
-  "age": 2,
-  "schoolId" : 6
+  "age": 21,
+  "schoolId" : 3
 }
 
 ###
-DELETE http://localhost:8080/mens/3
+DELETE http://localhost:8080/mens/2
 Content-Type: application/json
 
 ###
@@ -59,5 +59,37 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/schools/4
+DELETE http://localhost:8080/schools/3
+Content-Type: application/json
+
+###
+POST http://localhost:8080/majors
+Content-Type: application/json
+
+{
+  "majorName": "스토리텔링의 이해",
+  "majorUser": "강민영",
+  "majorProfessor": "홍영미"
+}
+
+###
+GET http://localhost:8080/majors
+Content-Type: application/json
+
+###
+GET http://localhost:8080/majors/1
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/majors/1
+Content-Type: application/json
+
+{
+  "majorName": "스토리텔링의 이해",
+  "majorUser": "강민영",
+  "majorProfessor": "홍영미"
+}
+
+###
+DELETE http://localhost:8080/schools/3
 Content-Type: application/json

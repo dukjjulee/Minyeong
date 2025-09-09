@@ -62,9 +62,11 @@ public class UserService {//MenService 선언
         List<UserEntity> userEmtities = userRepository.findAll();
         List<UserResponseDto> dtos = new ArrayList<>();
 
+        //반복문으로 리스트 전체 조회
         for (UserEntity userEntity : userEmtities) {
             SchoolEntity schoolEntity = userEntity.getSchool();
 
+            //schoolResponseDto선언 후 SchoolResponseDto 데이터 저장
             SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                     schoolEntity.getId(),
                     schoolEntity.getMajor(),
@@ -72,6 +74,7 @@ public class UserService {//MenService 선언
             );
 
 
+            //userResponseDto 선언 후 데이터 저장
             UserResponseDto userResponseDto = new UserResponseDto(
                     userEntity.getId(),
                     userEntity.getName(),
@@ -81,25 +84,29 @@ public class UserService {//MenService 선언
             );
             dtos.add(userResponseDto);
         }
+        //반환
         return dtos;
     }
 
     @Transactional(readOnly = true)
     public UserResponseDto getById(Long id) {
 
+        //userEntity 에 user데이터 담기 id가 다를 경우 경고 문구
         UserEntity userEntity = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 정보입니다.")
         );
 
-
+        //schoolEntity 선언 userEntity의 getSchool 데이터를 가져온다
         SchoolEntity schoolEntity = userEntity.getSchool();
 
+        //schoolResponseDto선언해 반환 할때 함께 반환한다.
         SchoolResponseDto schoolResponseDto = new SchoolResponseDto(
                 schoolEntity.getId(),
                 schoolEntity.getMajor(),
                 schoolEntity.getGrade()
         );
 
+        //반환
         return new UserResponseDto(
                 userEntity.getId(),
                 userEntity.getName(),
@@ -111,15 +118,18 @@ public class UserService {//MenService 선언
 
     @Transactional
     public UserResponseDto updateId(Long id, UserRequestDto userRequestDto){
+        //맞는 아이디를 찾아 user 데이터를 userEntity에 담기 맞지 않을 경우 경고 문구
         UserEntity userEntity = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 ManId 입니다.")
         );
 
+        //맞는 아이디를 찾아 school의 데이터를 schoolEntity에 담기 맞지 않을 경우 경고 문구
         SchoolEntity schoolEntity = schoolRepository.findById(userRequestDto.getSchoolId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 SchoolId 입니다")
-        );//
+        );
 
 
+        //userEntity 내용 수정
         userEntity.update(
                 userRequestDto.getName(),
                 userRequestDto.getGender(),
@@ -127,12 +137,14 @@ public class UserService {//MenService 선언
                 schoolEntity
         );
 
+        //SchoolResponsDto 타입의 schoolResponseDto에 id,major,gtrade값이 담긴 SchoolResponseDto 담기
         SchoolResponseDto schoolResponseDto = new SchoolResponseDto(
                 schoolEntity.getId(),
                 schoolEntity.getMajor(),
                 schoolEntity.getGrade()
         );
 
+        //UserResponseDto 반환
         return new UserResponseDto(
                 userEntity.getId(),
                 userEntity.getName(),
@@ -143,7 +155,9 @@ public class UserService {//MenService 선언
     }
 
     @Transactional
+    //삭제
     public void deleteId(Long id) {
+        //userEntity에 id를 찾아 담는다 없을 경우 경고문구
         UserEntity userEntity = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 ManId 입니다.")
         );

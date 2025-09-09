@@ -100,8 +100,15 @@ public class SchoolService {
         SchoolEntity schoolEntity = schoolRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 정보 입니다.")
         );
+        //schoolEntity의 getMan이 비었을 경우
+        if(schoolEntity.getMen().isEmpty()){
+            schoolRepository.deleteById(id);//데이터베이스에서 전달받은 id의 데이터를 삭제한다.
+        }
+        else{
+            throw new IllegalArgumentException("User 데이터가 남아 있습니다.");
+        }
         //schoolRepository의 삭제(특정아이디)
-        schoolRepository.deleteById(id);
+
     }
 }
 

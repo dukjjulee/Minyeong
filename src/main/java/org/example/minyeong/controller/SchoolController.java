@@ -15,7 +15,7 @@ public class SchoolController {
 
     private final SchoolService schoolService;
 
-    @PostMapping("schools")
+    @PostMapping("/schools")
     //저장 후 응답을 ResponseEntity로 반환
     public ResponseEntity<SchoolResponseDto> save(
             //schoolRequestDto 확인해서
