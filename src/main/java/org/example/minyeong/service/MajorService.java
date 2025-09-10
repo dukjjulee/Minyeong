@@ -36,6 +36,7 @@ public class MajorService {
                 majorEntity.getMajorProfessor()
         );
     }
+
     @Transactional(readOnly = true)
     public List<MajorResponseDto> getAll(){
         List<MajorEntity> majorEntities = majorRepository.findAll();

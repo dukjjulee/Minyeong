@@ -1,10 +1,13 @@
 package org.example.minyeong.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.minyeong.dto.MajorResponseDto;
 import org.example.minyeong.dto.UserRequestDto;
 import org.example.minyeong.dto.UserResponseDto;
 import org.example.minyeong.dto.SchoolResponseDto;
+import org.example.minyeong.entity.MajorEntity;
 import org.example.minyeong.entity.SchoolEntity;
+import org.example.minyeong.entity.SchoolMajor;
 import org.example.minyeong.entity.UserEntity;
 import org.example.minyeong.repository.UserRepository;
 import org.example.minyeong.repository.SchoolRepository;
@@ -39,12 +42,23 @@ public class UserService {//MenService 선언
 
         //UserEntity 타입의 userEntity 에 saveManEntity의 값을 데이터베이스에서 가져와 적용
         UserEntity userEntity = userRepository.save(saveUserEntity);
+        List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
 
         // schoolEntity 를 schoolResponseDto 에 담기
-        SchoolResponseDto schoolResponseDto = new SchoolResponseDto(
+        SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getMajor(),
-                schoolEntity.getGrade()
+                schoolEntity.getGrade(),
+                schoolMajor.stream().map(it -> {
+                            MajorEntity major = it.getMajorEntity();
+                            return new MajorResponseDto(
+                                    major.getId(),
+                                    major.getMajorName(),
+                                    major.getMajorUser(),
+                                    major.getMajorProfessor()
+                            );
+                        }
+                ).toList()
+
         );
         // UserResponseDto 반환
         return new UserResponseDto(
@@ -65,14 +79,24 @@ public class UserService {//MenService 선언
         //반복문으로 리스트 전체 조회
         for (UserEntity userEntity : userEmtities) {
             SchoolEntity schoolEntity = userEntity.getSchool();
+            List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
 
             //schoolResponseDto선언 후 SchoolResponseDto 데이터 저장
             SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                     schoolEntity.getId(),
-                    schoolEntity.getMajor(),
-                    schoolEntity.getGrade()
-            );
+                    schoolEntity.getGrade(),
+                    schoolMajor.stream().map(it -> {
+                        MajorEntity major = it.getMajorEntity();
+                        return new MajorResponseDto(
+                                major.getId(),
+                                major.getMajorName(),
+                                major.getMajorUser(),
+                                major.getMajorProfessor()
+                        );
+                    }
+                    ).toList()
 
+            );
 
             //userResponseDto 선언 후 데이터 저장
             UserResponseDto userResponseDto = new UserResponseDto(
@@ -98,12 +122,24 @@ public class UserService {//MenService 선언
 
         //schoolEntity 선언 userEntity의 getSchool 데이터를 가져온다
         SchoolEntity schoolEntity = userEntity.getSchool();
-
         //schoolResponseDto선언해 반환 할때 함께 반환한다.
-        SchoolResponseDto schoolResponseDto = new SchoolResponseDto(
+        List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
+
+        // schoolEntity 를 schoolResponseDto 에 담기
+        SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getMajor(),
-                schoolEntity.getGrade()
+                schoolEntity.getGrade(),
+                schoolMajor.stream().map(it -> {
+                            MajorEntity major = it.getMajorEntity();
+                            return new MajorResponseDto(
+                                    major.getId(),
+                                    major.getMajorName(),
+                                    major.getMajorUser(),
+                                    major.getMajorProfessor()
+                            );
+                        }
+                ).toList()
+
         );
 
         //반환
@@ -138,10 +174,23 @@ public class UserService {//MenService 선언
         );
 
         //SchoolResponsDto 타입의 schoolResponseDto에 id,major,gtrade값이 담긴 SchoolResponseDto 담기
-        SchoolResponseDto schoolResponseDto = new SchoolResponseDto(
+        List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
+
+        // schoolEntity 를 schoolResponseDto 에 담기
+        SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getMajor(),
-                schoolEntity.getGrade()
+                schoolEntity.getGrade(),
+                schoolMajor.stream().map(it -> {
+                            MajorEntity major = it.getMajorEntity();
+                            return new MajorResponseDto(
+                                    major.getId(),
+                                    major.getMajorName(),
+                                    major.getMajorUser(),
+                                    major.getMajorProfessor()
+                            );
+                        }
+                ).toList()
+
         );
 
         //UserResponseDto 반환

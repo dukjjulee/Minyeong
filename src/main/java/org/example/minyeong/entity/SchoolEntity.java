@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,22 +15,19 @@ public class SchoolEntity {
     //id는 자동 생성, 유일함
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String major;
     private Integer grade;
 
-
-    //School : Man | 다:1
     @OneToMany(mappedBy = "school")
-    //School안에 여러 Man
-    private List<UserEntity> men ;
+    private List<UserEntity> users;
 
-    public SchoolEntity(String major, Integer grade){
-        this.major = major;
+    @OneToMany
+    private List<SchoolMajor> schoolMajors;
+
+    public SchoolEntity(Integer grade){
         this.grade = grade;
     }
 
-    public void updateSchool(String major, Integer grade) {
-        this.major = major;
+    public void updateSchool(Integer grade) {
         this.grade = grade;
     }
 }

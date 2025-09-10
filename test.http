@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/mens
+POST http://localhost:8080/users
 Content-Type: application/json
 
 {
@@ -10,15 +10,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/mens
+GET http://localhost:8080/users
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/mens/7
+GET http://localhost:8080/users/7
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/mens/3
+PUT http://localhost:8080/users/3
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/mens/2
+DELETE http://localhost:8080/users/2
 Content-Type: application/json
 
 ###
@@ -67,9 +67,9 @@ POST http://localhost:8080/majors
 Content-Type: application/json
 
 {
-  "majorName": "스토리텔링의 이해",
+  "majorName": "수학교육",
   "majorUser": "강민영",
-  "majorProfessor": "홍영미"
+  "majorProfessor": "가나다"
 }
 
 ###
@@ -85,9 +85,9 @@ PUT http://localhost:8080/majors/1
 Content-Type: application/json
 
 {
-  "majorName": "스토리텔링의 이해",
+  "majorName": "수학교육",
   "majorUser": "강민영",
-  "majorProfessor": "홍영미"
+  "majorProfessor": "가나다"
 }
 
 ###

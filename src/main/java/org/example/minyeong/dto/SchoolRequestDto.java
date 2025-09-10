@@ -6,6 +6,6 @@ import lombok.Getter;
 public class SchoolRequestDto {
 
     private Long id;
-    private String major;
+    private Long majorId;
     private Integer grade;
 }

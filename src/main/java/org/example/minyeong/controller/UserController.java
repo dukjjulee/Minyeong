@@ -19,28 +19,28 @@ public class UserController {//UserController 클래스 선언
     private final SchoolService schoolService;
 
     // 생성
-    @PostMapping("/mens")
+    @PostMapping("/users")
     // 공개|리턴값-http 본문 함께 전달 | 데이터 저장 메소드명| 클라이언트가 보낸 데이터 Man객체로 변환|
     public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto userRequestDto) {
         //리턴 | 저장 결과를 200ok 상태와 응답으로 반환| manService 의 save 메소드 호출
         return ResponseEntity.ok(userService.save(userRequestDto));
     }
 
-    @GetMapping("/mens")
+    @GetMapping("/users")
     public ResponseEntity<List<UserResponseDto>> get(){
         return ResponseEntity.ok(userService.getAll());
     }
 
-    @GetMapping("/mens/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> get(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @PutMapping("/mens/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> put(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(userService.updateId(id, userRequestDto));
     }
-    @DeleteMapping("/mens/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.deleteId(id);
         return ResponseEntity.ok("삭제 완료");

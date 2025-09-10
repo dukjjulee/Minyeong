@@ -23,6 +23,10 @@ public class UserEntity {//클래스 ManEntity를 선언
     @JoinColumn(name = "school_id")//Man테이블에 컬럼 생성
     private SchoolEntity school;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "major_id")
+    private MajorEntity major;
+
     public UserEntity(String name, String gender, Integer age, SchoolEntity school) {
         //ManaEntity 안에 선언된 변수(name)에 매개변수(String name)가 저장된다
         this.name = name;

@@ -6,10 +6,10 @@ import org.example.minyeong.repository.MajorRepository;
 
 @Getter
 public class MajorResponseDto {
-    private Long id;
-    private String majorName;
-    private String majorUser;
-    private String majorProfessor;
+    private final Long id;
+    private final String majorName;
+    private final String majorUser;
+    private final String majorProfessor;
 
     public MajorResponseDto(
             Long id,
