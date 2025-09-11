@@ -14,10 +14,15 @@ public class SchoolMajor {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "school")
+    @JoinColumn(name = "school_id")
     private SchoolEntity schoolEntity;
 
     @ManyToOne
-    @JoinColumn(name = "major")
+    @JoinColumn(name = "major_id")
     private MajorEntity majorEntity;
+
+    public SchoolMajor(SchoolEntity schoolEntity, MajorEntity majorEntity){
+        this.schoolEntity = schoolEntity;
+        this.majorEntity = majorEntity;
+    }
 }

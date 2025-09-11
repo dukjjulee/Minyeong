@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class MajorRequestDto {
+    private Long schoolId;
     private String majorName;
-    private String majorUser;
     private String majorProfessor;
 }

@@ -1,25 +1,25 @@
 package org.example.minyeong.dto;
 
 import lombok.Getter;
-import org.example.minyeong.entity.MajorEntity;
-import org.example.minyeong.repository.MajorRepository;
+
+import java.util.List;
 
 @Getter
 public class MajorResponseDto {
     private final Long id;
     private final String majorName;
-    private final String majorUser;
     private final String majorProfessor;
+    private SchoolResponseDto schoolResponseDto;
 
     public MajorResponseDto(
             Long id,
             String majorName,
-            String majorUser,
-            String majorProfessor
+            String majorProfessor,
+            SchoolResponseDto schoolResponseDo
     ){
         this.id = id;
         this.majorName = majorName;
-        this.majorUser = majorUser;
         this.majorProfessor = majorProfessor;
+        this.schoolResponseDto = schoolResponseDto;
     }
 }

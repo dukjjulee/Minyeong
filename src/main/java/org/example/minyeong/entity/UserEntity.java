@@ -21,24 +21,24 @@ public class UserEntity {//클래스 ManEntity를 선언
     //School : Man | 다:1 /UserEntity 필요할 때만, school이 null일 수 없음
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "school_id")//Man테이블에 컬럼 생성
-    private SchoolEntity school;
+    private SchoolEntity schoolEntity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "major_id")
-    private MajorEntity major;
+    private MajorEntity majorEntity;
 
-    public UserEntity(String name, String gender, Integer age, SchoolEntity school) {
+    public UserEntity(String name, String gender, Integer age, MajorEntity MajorEntity) {
         //ManaEntity 안에 선언된 변수(name)에 매개변수(String name)가 저장된다
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.school = school;
+        this.majorEntity = MajorEntity;
     }
 
-    public void update(String name, String gender, Integer age, SchoolEntity school) {
+    public void update(String name, String gender, Integer age, MajorEntity MajorEntity) {
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.school = school;
+        this.majorEntity = MajorEntity;
     }
 }

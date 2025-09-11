@@ -27,23 +27,23 @@ public class SchoolService {
     public SchoolResponseDto save(SchoolRequestDto schoolRequestDto){
         //SchoolEntity 타입의 schoolEntity에 SchoolEntity 적용한다.
         SchoolEntity saveSchoolEntity = new SchoolEntity(
-                schoolRequestDto.getGrade()
+                schoolRequestDto.getSchoolName()
         );
 
         //SchoolEntity 타입의 schoolEntity에 schoolRepository 저장
         SchoolEntity schoolEntity = schoolRepository.save(saveSchoolEntity);
+
         List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
 
         //응답할 result 선언해 SchoolResponseDto 넣기
         SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getGrade(),
+                schoolEntity.getSchoolName(),
                 schoolMajor.stream().map(it -> {
                             MajorEntity major = it.getMajorEntity();
                             return new MajorResponseDto(
                                     major.getId(),
                                     major.getMajorName(),
-                                    major.getMajorUser(),
                                     major.getMajorProfessor()
                             );
                         }
@@ -70,13 +70,12 @@ public class SchoolService {
             //응답할 result 선언해 SchoolResponseDto 넣기
             SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                     schoolEntity.getId(),
-                    schoolEntity.getGrade(),
+                    schoolEntity.getSchoolName(),
                     schoolMajor.stream().map(it -> {
                                 MajorEntity major = it.getMajorEntity();
                                 return new MajorResponseDto(
                                         major.getId(),
                                         major.getMajorName(),
-                                        major.getMajorUser(),
                                         major.getMajorProfessor()
                                 );
                             }
@@ -104,13 +103,12 @@ public class SchoolService {
         //응답할 result 선언해 SchoolResponseDto 넣기
         SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getGrade(),
+                schoolEntity.getSchoolName(),
                 schoolMajor.stream().map(it -> {
                             MajorEntity major = it.getMajorEntity();
                             return new MajorResponseDto(
                                     major.getId(),
                                     major.getMajorName(),
-                                    major.getMajorUser(),
                                     major.getMajorProfessor()
                             );
                         }
@@ -128,27 +126,22 @@ public class SchoolService {
 
         //SchoolEntity 타입의 schoolEntity에 데이터베이스의 (전달밭은 id와 일치하는)id를 찾아 와 적용한다.
         SchoolEntity schoolEntity = schoolRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 정보 입니다.")
+                () -> new IllegalArgumentException("해당하는 schoolId 가 없습니다.")
         );
 
         //엔티티의 수정(schoolRequestDto의 getMajor와 schoolRequestDto의getGrade())
-        schoolEntity.updateSchool(schoolRequestDto.getGrade());
+        schoolEntity.updateSchool(schoolRequestDto.getSchoolName());
 
-        if(schoolRequestDto.getMajorId() != null){
-            schoolEntity.getSchoolMajors().clear();
-        }
-        //반환한다 SchoolResponseDto
-        List<SchoolMajor> schoolMajor = schoolEntity.getSchoolMajors();
+        List<SchoolMajor> schoolMajors = schoolEntity.getSchoolMajors();
 
         SchoolResponseDto schoolResponseDto = new SchoolResponseDto (
                 schoolEntity.getId(),
-                schoolEntity.getGrade(),
-                schoolMajor.stream().map(it -> {
+                schoolEntity.getSchoolName(),
+                schoolMajors.stream().map(it -> {
                             MajorEntity major = it.getMajorEntity();
                             return new MajorResponseDto(
                                     major.getId(),
                                     major.getMajorName(),
-                                    major.getMajorUser(),
                                     major.getMajorProfessor()
                             );
                         }
@@ -164,7 +157,7 @@ public class SchoolService {
                 () -> new IllegalArgumentException("존재하지 않는 정보 입니다.")
         );
         //schoolEntity의 getMan이 비었을 경우
-        if(schoolEntity.getUsers().isEmpty()){
+        if(schoolEntity.getUserEntity().isEmpty()){
             schoolRepository.deleteById(id);//데이터베이스에서 전달받은 id의 데이터를 삭제한다.
         }
         else{

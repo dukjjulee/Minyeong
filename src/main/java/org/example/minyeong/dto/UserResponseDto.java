@@ -11,19 +11,19 @@ public class UserResponseDto {
     private final Integer age;
 
     //연관관계 School의 정보
-    private final SchoolResponseDto schoolResponseDto;
+    private final MajorResponseDto majorResponseDto;
 
         public UserResponseDto(
             Long id,
             String name,
             String gender,
             Integer age,
-            SchoolResponseDto schoolResponseDto
+            MajorResponseDto majorResponseDto
     ){
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.schoolResponseDto = schoolResponseDto;
+        this.majorResponseDto = majorResponseDto;
     }
 }

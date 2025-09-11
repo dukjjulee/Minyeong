@@ -8,17 +8,13 @@ import java.util.List;
 @NoArgsConstructor
 public class SchoolResponseDto {
     private Long id;
-    private Integer grade;
-
-    private List<MajorResponseDto> majors;
+    private String schoolName;
 
     public SchoolResponseDto(
             Long id,
-            Integer grade,
-            List<MajorResponseDto> majors
+            String schoolName
     ){
         this.id = id;
-        this.grade = grade;
-        this.majors = majors;
+        this.schoolName = schoolName;
     }
 }

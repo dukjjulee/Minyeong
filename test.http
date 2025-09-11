@@ -3,10 +3,11 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "name":"민사",
+  "name":"민영",
   "age": 20,
   "gender": "male",
-  "schoolId": 3
+  "schoolId": 9,
+  "majorId": 5
 }
 
 ###
@@ -22,10 +23,11 @@ PUT http://localhost:8080/users/3
 Content-Type: application/json
 
 {
-  "name":"민삼",
+  "name":"민일",
+  "age": 20,
   "gender": "male",
-  "age": 21,
-  "schoolId" : 3
+  "schoolId": 9,
+  "majorId": 5
 }
 
 ###
@@ -37,8 +39,7 @@ POST http://localhost:8080/schools
 Content-Type: application/json
 
 {
-  "major": "수학교육",
-  "grade": 4
+  "schoolName": "내일배움"
 }
 
 ###
@@ -59,7 +60,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/schools/3
+DELETE http://localhost:8080/schools/8
 Content-Type: application/json
 
 ###
@@ -67,9 +68,9 @@ POST http://localhost:8080/majors
 Content-Type: application/json
 
 {
-  "majorName": "수학교육",
-  "majorUser": "강민영",
-  "majorProfessor": "가나다"
+  "majorName": "컴퓨터공학",
+  "majorProfessor": "현석훈",
+  "schoolId": 10
 }
 
 ###
@@ -85,9 +86,8 @@ PUT http://localhost:8080/majors/1
 Content-Type: application/json
 
 {
-  "majorName": "수학교육",
-  "majorUser": "강민영",
-  "majorProfessor": "가나다"
+  "majorName": "고전미술",
+  "majorProfessor": "레오나르도"
 }
 
 ###

@@ -16,32 +16,27 @@ public class MajorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String majorName;
-    private String majorUser;
     private String majorProfessor;
 
-    @OneToMany(mappedBy = "major")
+    @OneToMany(mappedBy = "majorEntity")
     private List<SchoolMajor> schoolMajors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "major")
-    private List<UserEntity> users;
+    @OneToMany(mappedBy = "majorEntity")
+    private List<UserEntity> userEntity = new ArrayList<>();;
 
     public MajorEntity(
             String majorName,
-            String majorUser,
             String majorProfessor
     ){
         this.majorName = majorName;
-        this.majorUser = majorUser;
         this.majorProfessor = majorProfessor;
     }
 
     public void updateMajor(
             String majorName,
-            String majorUser,
             String majorProfessor
     ){
         this.majorName = majorName;
-        this.majorUser = majorUser;
         this.majorProfessor = majorProfessor;
     }
 }

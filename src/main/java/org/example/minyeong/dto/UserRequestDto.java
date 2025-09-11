@@ -6,7 +6,7 @@ import lombok.Getter;
 public class UserRequestDto {
 
     private Long id;
-    private Long schoolId;
+    private Long majorId;
     private String name;
     private String gender;
     private Integer age;

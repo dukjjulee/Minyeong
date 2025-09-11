@@ -15,19 +15,19 @@ public class SchoolEntity {
     //id는 자동 생성, 유일함
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer grade;
+    private String schoolName;
 
-    @OneToMany(mappedBy = "school")
-    private List<UserEntity> users;
+    @OneToMany(mappedBy = "schoolEntity")
+    private List<UserEntity> userEntity = new ArrayList<>();;
 
-    @OneToMany
-    private List<SchoolMajor> schoolMajors;
+    @OneToMany(mappedBy = "schoolEntity")
+    private List<SchoolMajor> schoolMajors = new ArrayList<>();
 
-    public SchoolEntity(Integer grade){
-        this.grade = grade;
+    public SchoolEntity(String schoolName){
+        this.schoolName = schoolName;
     }
 
-    public void updateSchool(Integer grade) {
-        this.grade = grade;
+    public void updateSchool(String grade) {
+        this.schoolName = grade;
     }
 }
