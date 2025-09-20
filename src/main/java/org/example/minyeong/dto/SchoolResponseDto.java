@@ -2,6 +2,8 @@ package org.example.minyeong.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.minyeong.entity.SchoolEntity;
+
 import java.util.List;
 
 @Getter
@@ -16,5 +18,9 @@ public class SchoolResponseDto {
     ){
         this.id = id;
         this.schoolName = schoolName;
+    }
+
+    public static SchoolResponseDto from(SchoolEntity schoolEntity) {
+        return new SchoolResponseDto(schoolEntity.getId(), schoolEntity.getSchoolName());
     }
 }

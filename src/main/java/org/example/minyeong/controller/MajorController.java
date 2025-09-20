@@ -1,5 +1,6 @@
 package org.example.minyeong.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.minyeong.dto.MajorRequestDto;
 import org.example.minyeong.dto.MajorResponseDto;
@@ -17,7 +18,7 @@ public class MajorController {
 
     @PostMapping("/majors")
     public ResponseEntity<MajorResponseDto> save(
-            @RequestBody MajorRequestDto majorRequestDto
+            @Valid @RequestBody MajorRequestDto majorRequestDto
     ) {
         return ResponseEntity.ok(majorService.save(majorRequestDto));
     }
@@ -35,7 +36,7 @@ public class MajorController {
     @PutMapping("/majors/{id}")
     public ResponseEntity<MajorResponseDto> update(
             @PathVariable Long id,
-            @RequestBody MajorRequestDto majorRequestDto
+            @Valid @RequestBody MajorRequestDto majorRequestDto
     ){
         return ResponseEntity.ok(majorService.updateId(id, majorRequestDto));
     }

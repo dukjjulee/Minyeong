@@ -1,6 +1,7 @@
 package org.example.minyeong.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class MajorEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class MajorEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +20,10 @@ public class MajorEntity {
     private String majorProfessor;
 
     @OneToMany(mappedBy = "majorEntity")
-    private List<SchoolMajor> schoolMajors = new ArrayList<>();
+    private final List<SchoolMajor> schoolMajors = new ArrayList<>();
 
     @OneToMany(mappedBy = "majorEntity")
-    private List<UserEntity> userEntity = new ArrayList<>();;
+    private final List<UserEntity> userEntity = new ArrayList<>();;
 
     public MajorEntity(
             String majorName,
@@ -38,5 +39,9 @@ public class MajorEntity {
     ){
         this.majorName = majorName;
         this.majorProfessor = majorProfessor;
+    }
+
+    public static MajorEntity create(String majorName, String majorProfessor) {
+        return new MajorEntity(majorName, majorProfessor);
     }
 }

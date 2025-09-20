@@ -1,9 +1,14 @@
 package org.example.minyeong.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.minyeong.dto.SchoolRequestDto;
 import org.example.minyeong.dto.SchoolResponseDto;
 import org.example.minyeong.service.SchoolService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,16 +24,18 @@ public class SchoolController {
     //저장 후 응답을 ResponseEntity로 반환
     public ResponseEntity<SchoolResponseDto> save(
             //schoolRequestDto 확인해서
-            @RequestBody SchoolRequestDto schoolRequestDto) {
+            @Valid @RequestBody SchoolRequestDto schoolRequestDto) {
         //ok 반환(schoolService 로 저장 후)
         return ResponseEntity.ok(schoolService.save(schoolRequestDto));
     }
 
     @GetMapping("/schools")
     //SchoolResponseDto 의 리스트 가져오기
-    public ResponseEntity<List<SchoolResponseDto>> get(){
-        //ok 반환(schoolService 가져와서)
-        return ResponseEntity.ok(schoolService.getAll());
+    public Page<SchoolResponseDto> get(
+            @PageableDefault(size = 10, page = 0, sort = {"createdAt"}, direction = Sort.Direction.DESC)Pageable pageable,
+            @RequestParam(required = false) String searchKeyword
+    ){
+        return schoolService.getAll(searchKeyword, pageable);
     }
 
     //단건 조회
@@ -42,7 +49,7 @@ public class SchoolController {
     //수정
     @PutMapping("/schools/{id}")
     //응답을 ResponseEntity로 반환할건데 수정(id를 가져오고 schoolRequestDto 확인한 후)
-    public ResponseEntity<SchoolResponseDto> update(@PathVariable Long id, @RequestBody SchoolRequestDto schoolRequestDto) {
+    public ResponseEntity<SchoolResponseDto> update(@PathVariable Long id, @Valid @RequestBody SchoolRequestDto schoolRequestDto) {
         //ok 반환(수정한 id, schoolRequestDto 가져와서)
         return ResponseEntity.ok(schoolService.update(id, schoolRequestDto));
     }

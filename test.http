@@ -3,11 +3,11 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "name":"민영",
-  "age": 20,
-  "gender": "male",
-  "schoolId": 9,
-  "majorId": 5
+  "schoolId": 1,
+  "majorId": 3,
+  "name":"민영십팔",
+  "age": 23,
+  "gender": "female"
 }
 
 ###
@@ -15,23 +15,23 @@ GET http://localhost:8080/users
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users/7
+GET http://localhost:8080/users/2
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/users/3
+PUT http://localhost:8080/users/18
 Content-Type: application/json
 
 {
-  "name":"민일",
+  "schoolId": 1,
+  "majorId": 2,
+  "name":"민영십육",
   "age": 20,
-  "gender": "male",
-  "schoolId": 9,
-  "majorId": 5
+  "gender": "male"
 }
 
 ###
-DELETE http://localhost:8080/users/2
+DELETE http://localhost:8080/users/18
 Content-Type: application/json
 
 ###
@@ -39,7 +39,7 @@ POST http://localhost:8080/schools
 Content-Type: application/json
 
 {
-  "schoolName": "내일배움"
+  "schoolName": "와삼대학"
 }
 
 ###
@@ -47,20 +47,19 @@ GET http://localhost:8080/schools
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/schools/5
+GET http://localhost:8080/schools/2
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/schools/4
+PUT http://localhost:8080/schools/6
 Content-Type: application/json
 
 {
-  "major": "만화애니",
-  "grade": 1
+  "schoolName": "우리대학"
 }
 
 ###
-DELETE http://localhost:8080/schools/8
+DELETE http://localhost:8080/schools/7
 Content-Type: application/json
 
 ###
@@ -68,9 +67,8 @@ POST http://localhost:8080/majors
 Content-Type: application/json
 
 {
-  "majorName": "컴퓨터공학",
-  "majorProfessor": "현석훈",
-  "schoolId": 10
+  "majorName": "물리학",
+  "majorProfessor": "일이삼"
 }
 
 ###
@@ -78,18 +76,18 @@ GET http://localhost:8080/majors
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/majors/1
+GET http://localhost:8080/majors/2
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/majors/1
+PUT http://localhost:8080/majors/6
 Content-Type: application/json
 
 {
-  "majorName": "고전미술",
-  "majorProfessor": "레오나르도"
+  "majorName": "물리학",
+  "majorProfessor": "아이작 뉴턴"
 }
 
 ###
-DELETE http://localhost:8080/schools/3
+DELETE http://localhost:8080/majors/6
 Content-Type: application/json

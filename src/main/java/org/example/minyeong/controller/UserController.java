@@ -1,10 +1,15 @@
 package org.example.minyeong.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.minyeong.dto.UserRequestDto;
 import org.example.minyeong.dto.UserResponseDto;
 import org.example.minyeong.service.UserService;
 import org.example.minyeong.service.SchoolService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +26,21 @@ public class UserController {//UserController 클래스 선언
     // 생성
     @PostMapping("/users")
     // 공개|리턴값-http 본문 함께 전달 | 데이터 저장 메소드명| 클라이언트가 보낸 데이터 Man객체로 변환|
-    public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> save(@Valid @RequestBody UserRequestDto userRequestDto) {
         //리턴 | 저장 결과를 200ok 상태와 응답으로 반환| manService 의 save 메소드 호출
         return ResponseEntity.ok(userService.save(userRequestDto));
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserResponseDto>> get(){
-        return ResponseEntity.ok(userService.getAll());
+    public Page<UserResponseDto> getUsers(
+            @PageableDefault(size = 10, page = 0, sort = {"createdAt"}, direction = Sort.Direction.DESC)Pageable pageable,
+            @RequestParam(required = false) String searchKeyword
+            ){
+        return userService.getAll(searchKeyword, pageable);
     }
+//    public ResponseEntity<List<UserResponseDto>> get(){
+//        return ResponseEntity.ok(userService.getAll());
+//    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> get(@PathVariable Long id) {
@@ -37,7 +48,7 @@ public class UserController {//UserController 클래스 선언
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<UserResponseDto> put(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> put(@PathVariable Long id, @Valid @RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(userService.updateId(id, userRequestDto));
     }
     @DeleteMapping("/users/{id}")
