@@ -5,9 +5,20 @@ Content-Type: application/json
 {
   "schoolId": 1,
   "majorId": 3,
-  "name":"민영십팔",
+  "name":"강민영",
   "age": 23,
-  "gender": "female"
+  "gender": "female",
+  "email": "email123.email",
+  "password": "password1"
+}
+
+###
+POST http://localhost:8080
+Content-Type: application/json
+
+{
+  "email": "email123.email",
+  "password": "passwoed1"
 }
 
 ###
@@ -15,7 +26,7 @@ GET http://localhost:8080/users
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users/2
+GET http://localhost:8080/users/1
 Content-Type: application/json
 
 ###

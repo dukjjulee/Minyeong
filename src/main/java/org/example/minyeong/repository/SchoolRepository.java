@@ -6,6 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 //SchoolEntity 와 Long 를 데이터베이스에 저장할것임
 public interface SchoolRepository extends JpaRepository<SchoolEntity, Long> {
-    Long id(Long id);
-    Page<SchoolEntity> findAllByNicknameLike(String nickname, Pageable pageable);
+    Page<SchoolEntity> findAllBySchoolName(String schoolName, Pageable pageable);
 }

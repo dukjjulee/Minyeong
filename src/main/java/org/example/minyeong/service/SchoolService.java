@@ -4,15 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.example.minyeong.dto.SchoolRequestDto;
 import org.example.minyeong.dto.SchoolResponseDto;
 import org.example.minyeong.entity.SchoolEntity;
-import org.example.minyeong.entity.SchoolMajor;
 import org.example.minyeong.repository.SchoolRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +35,7 @@ public class SchoolService {
     //List<SchoolResponseDto>/ 전부 가져오기
     public Page<SchoolResponseDto> getAll(String searchKeyword, Pageable pageable) {
         //List<SchoolEntity> 타입의 schoolEntities 데이터베이스 다 가져와 적용한다
-        Page<SchoolEntity> schoolEntities = schoolRepository.findAllByNicknameLike(searchKeyword, pageable);
+        Page<SchoolEntity> schoolEntities = schoolRepository.findAllBySchoolName(searchKeyword, pageable);
 
         //schoolEntity 엔티티들 다 조회 후 변환
         return schoolEntities.map(e -> {

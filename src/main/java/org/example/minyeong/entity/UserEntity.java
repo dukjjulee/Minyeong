@@ -5,10 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.minyeong.constant.Gender;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.domain.Page;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -29,6 +25,8 @@ public class UserEntity extends BaseEntity{//클래스 ManEntity를 선언
     @Enumerated(EnumType.STRING)
     private Gender gender; //성별
 
+    String email;
+    String password;
     //School : Man | 다:1 /UserEntity 필요할 때만, school이 null일 수 없음
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "school_id")//Man테이블에 컬럼 생성
@@ -45,19 +43,40 @@ public class UserEntity extends BaseEntity{//클래스 ManEntity를 선언
         this.viewCount += 1;
     }
 
-    public UserEntity(String name, Gender gender, Integer age, SchoolEntity schoolEntity, MajorEntity majorEntity) {
+    public UserEntity(
+            String name,
+            Gender gender,
+            Integer age,
+            String email,
+            String password,
+            SchoolEntity schoolEntity,
+            MajorEntity majorEntity)
+    {
         //ManaEntity 안에 선언된 변수(name)에 매개변수(String name)가 저장된다
         this.name = name;
         this.gender = gender;
         this.age = age;
+        this.email = email;
+        this.password = password;
         this.schoolEntity = schoolEntity;
         this.majorEntity = majorEntity;
     }
 
-    public void update(String name, Gender gender, Integer age, SchoolEntity schoolEntity, MajorEntity majorEntity) {
+    public void update(
+            String name,
+            Gender gender,
+            Integer age,
+            String email,
+            String password,
+            SchoolEntity schoolEntity,
+            MajorEntity majorEntity)
+
+    {
         this.name = name;
         this.gender = gender;
         this.age = age;
+        this.email = email;
+        this.password = password;
         this.schoolEntity = schoolEntity;
         this.majorEntity = majorEntity;
     }
@@ -65,9 +84,11 @@ public class UserEntity extends BaseEntity{//클래스 ManEntity를 선언
     public static UserEntity create(String name,
                                     Gender gender,
                                     Integer age,
+                                    String email,
+                                    String password,
                                     SchoolEntity schoolEntity,
                                     MajorEntity majorEntity
     ) {
-        return new UserEntity(name, gender, age, schoolEntity, majorEntity);
+        return new UserEntity(name, gender, age, email, password, schoolEntity, majorEntity);
     }
 }

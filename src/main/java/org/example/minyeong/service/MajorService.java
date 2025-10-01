@@ -19,7 +19,6 @@ import java.util.List;
 public class MajorService {
 
     private final MajorRepository majorRepository;
-    private final SchoolRepository schoolRepository;
 
     @Transactional
     public MajorResponseDto save(MajorRequestDto majorRequestDto){

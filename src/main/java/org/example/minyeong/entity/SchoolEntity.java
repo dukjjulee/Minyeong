@@ -37,4 +37,5 @@ public class SchoolEntity extends BaseEntity {
     public static SchoolEntity create(String schoolName) {
         return new SchoolEntity(schoolName);
     }
+
 }

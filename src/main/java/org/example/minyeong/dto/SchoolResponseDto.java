@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.minyeong.entity.SchoolEntity;
 
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 public class SchoolResponseDto {

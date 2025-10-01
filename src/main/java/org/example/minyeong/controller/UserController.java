@@ -2,6 +2,7 @@ package org.example.minyeong.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.minyeong.dto.LoginRequest;
 import org.example.minyeong.dto.UserRequestDto;
 import org.example.minyeong.dto.UserResponseDto;
 import org.example.minyeong.service.UserService;
@@ -22,6 +23,20 @@ public class UserController {//UserController 클래스 선언
     //공개| 고정 | 클래스  | 변수 |
     public final UserService userService;//UserService 타입을 담을 변수(userService)
     private final SchoolService schoolService;
+
+    @PostMapping("/users/signup")
+    public ResponseEntity<UserResponseDto> signup(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(userService.signin(loginRequest));
+    }
+    @PostMapping("/user/login")
+
+
+    @PostMapping("/users/logout")
+    // 공개|리턴값-http 본문 함께 전달 | 데이터 저장 메소드명| 클라이언트가 보낸 데이터 Man객체로 변환|
+    public ResponseEntity<UserResponseDto> logout(@Valid @RequestBody UserRequestDto userRequestDto) {
+        //리턴 | 저장 결과를 200ok 상태와 응답으로 반환| manService 의 save 메소드 호출
+        return ResponseEntity.ok(userService.save(userRequestDto));
+    }
 
     // 생성
     @PostMapping("/users")

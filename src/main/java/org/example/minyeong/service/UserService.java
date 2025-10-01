@@ -1,10 +1,9 @@
 package org.example.minyeong.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minyeong.dto.MajorResponseDto;
+import org.example.minyeong.dto.LoginRequest;
 import org.example.minyeong.dto.UserRequestDto;
 import org.example.minyeong.dto.UserResponseDto;
-import org.example.minyeong.dto.SchoolResponseDto;
 import org.example.minyeong.entity.MajorEntity;
 import org.example.minyeong.entity.SchoolEntity;
 import org.example.minyeong.entity.UserEntity;
@@ -26,6 +25,17 @@ public class UserService {//MenService 선언
     private final SchoolRepository schoolRepository;
 
     @Transactional
+    public UserResponseDto signup(LoginRequest request) {
+        UserEntity userEntity = userRepository.findByEmail(request.email()).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 email 입니다."));
+
+        UserEntity userEntity1 = userRepository.findByPassword(request.password()).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 password 입니다.")
+        );
+        return UserResponseDto.from(userEntity);
+    }
+
+    @Transactional
     public UserResponseDto save(UserRequestDto userRequestDto){
 
         SchoolEntity schoolEntity = getSchoolEntity(userRequestDto);
@@ -38,6 +48,8 @@ public class UserService {//MenService 선언
                 userRequestDto.getName(),
                 userRequestDto.getGender(),
                 userRequestDto.getAge(),
+                userRequestDto.getEmail(),
+                userRequestDto.getPassword(),
                 schoolEntity,
                 majorEntity
         );
@@ -119,6 +131,8 @@ public class UserService {//MenService 선언
                 userRequestDto.getName(),
                 userRequestDto.getGender(),
                 userRequestDto.getAge(),
+                userRequestDto.getEmail(),
+                userRequestDto.getPassword(),
                 schoolEntity,
                 majorEntity
         );
