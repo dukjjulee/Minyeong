@@ -8,25 +8,29 @@ Content-Type: application/json
   "name":"강민영",
   "age": 23,
   "gender": "female",
+  "email": "email1234.email",
+  "password": "password12"
+}
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
   "email": "email123.email",
   "password": "password1"
 }
 
 ###
-POST http://localhost:8080
+GET http://localhost:8080/test
 Content-Type: application/json
-
-{
-  "email": "email123.email",
-  "password": "passwoed1"
-}
 
 ###
 GET http://localhost:8080/users
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/users/1
+GET http://localhost:8080/users/9
 Content-Type: application/json
 
 ###
@@ -42,7 +46,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/users/18
+DELETE http://localhost:8080/users/8
 Content-Type: application/json
 
 ###

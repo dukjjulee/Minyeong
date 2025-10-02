@@ -69,7 +69,7 @@ class UserServiceTest {
                 "password");
 
         //when
-        UserResponseDto userResponseDto = userService.save(userRequestDto);
+        UserResponseDto userResponseDto = userService.signup(userRequestDto);
 
         //then
         assertThat(userResponseDto).isNotNull();

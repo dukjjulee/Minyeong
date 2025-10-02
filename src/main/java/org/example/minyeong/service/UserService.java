@@ -25,18 +25,7 @@ public class UserService {//MenService 선언
     private final SchoolRepository schoolRepository;
 
     @Transactional
-    public UserResponseDto signup(LoginRequest request) {
-        UserEntity userEntity = userRepository.findByEmail(request.email()).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 email 입니다."));
-
-        UserEntity userEntity1 = userRepository.findByPassword(request.password()).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 password 입니다.")
-        );
-        return UserResponseDto.from(userEntity);
-    }
-
-    @Transactional
-    public UserResponseDto save(UserRequestDto userRequestDto){
+    public UserResponseDto signup(UserRequestDto userRequestDto){
 
         SchoolEntity schoolEntity = getSchoolEntity(userRequestDto);
 
@@ -55,6 +44,9 @@ public class UserService {//MenService 선언
         );
         //UserEntity 타입의 userEntity 에 saveManEntity의 값을 데이터베이스에서 가져와 적용
         UserEntity userEntity = userRepository.save(saveUserEntity);
+
+        return  UserResponseDto.from(userEntity);
+    }
 //
 //        SchoolResponseDto schoolResponseDto = SchoolResponseDto.from(
 //                schoolEntity.getId(),
@@ -68,8 +60,18 @@ public class UserService {//MenService 선언
 //                majorEntity.getMajorProfessor()
 //        );
 
-        // UserResponseDto 반환
-        return  UserResponseDto.from(userEntity);
+    // UserResponseDto 반환
+    @Transactional(readOnly = true)
+    public UserEntity findOne(LoginRequest request) {
+
+        UserEntity user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+
+        if (!user.getPassword().equals(request.password())) {
+            throw  new IllegalArgumentException("user not found2");
+        }
+
+        return user;
     }
 
     @Transactional(readOnly = true)

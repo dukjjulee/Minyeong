@@ -1,10 +1,14 @@
 package org.example.minyeong.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.minyeong.dto.LoginRequest;
 import org.example.minyeong.dto.UserRequestDto;
 import org.example.minyeong.dto.UserResponseDto;
+import org.example.minyeong.entity.UserEntity;
 import org.example.minyeong.service.UserService;
 import org.example.minyeong.service.SchoolService;
 import org.springframework.data.domain.Page;
@@ -14,8 +18,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController//Json형태로 객체 데이터 반환
 @RequiredArgsConstructor //생성자 주입 자동 설정
 public class UserController {//UserController 클래스 선언
@@ -24,18 +26,26 @@ public class UserController {//UserController 클래스 선언
     public final UserService userService;//UserService 타입을 담을 변수(userService)
     private final SchoolService schoolService;
 
-    @PostMapping("/users/signup")
-    public ResponseEntity<UserResponseDto> signup(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(userService.signin(loginRequest));
+    @PostMapping("/user/signup")
+    public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto userRequestDto){
+        return ResponseEntity.ok(userService.signup(userRequestDto));
     }
-    @PostMapping("/user/login")
 
+    @PostMapping("/login")
+    public void login(HttpServletRequest servletRequest, @RequestBody LoginRequest request) {
 
-    @PostMapping("/users/logout")
-    // 공개|리턴값-http 본문 함께 전달 | 데이터 저장 메소드명| 클라이언트가 보낸 데이터 Man객체로 변환|
-    public ResponseEntity<UserResponseDto> logout(@Valid @RequestBody UserRequestDto userRequestDto) {
-        //리턴 | 저장 결과를 200ok 상태와 응답으로 반환| manService 의 save 메소드 호출
-        return ResponseEntity.ok(userService.save(userRequestDto));
+        UserEntity userEntity = userService.findOne(request);
+
+        HttpSession session = servletRequest.getSession();
+        session.setAttribute("LOGIN_USER", userEntity.getId());
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest servletRequest) {
+        HttpSession session = servletRequest.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 
     // 생성
@@ -43,7 +53,7 @@ public class UserController {//UserController 클래스 선언
     // 공개|리턴값-http 본문 함께 전달 | 데이터 저장 메소드명| 클라이언트가 보낸 데이터 Man객체로 변환|
     public ResponseEntity<UserResponseDto> save(@Valid @RequestBody UserRequestDto userRequestDto) {
         //리턴 | 저장 결과를 200ok 상태와 응답으로 반환| manService 의 save 메소드 호출
-        return ResponseEntity.ok(userService.save(userRequestDto));
+        return ResponseEntity.ok(userService.signup(userRequestDto));
     }
 
     @GetMapping("/users")
@@ -52,6 +62,11 @@ public class UserController {//UserController 클래스 선언
             @RequestParam(required = false) String searchKeyword
             ){
         return userService.getAll(searchKeyword, pageable);
+    }
+
+    @GetMapping("test")
+    public String test() {
+        return "로그인 유저";
     }
 //    public ResponseEntity<List<UserResponseDto>> get(){
 //        return ResponseEntity.ok(userService.getAll());
